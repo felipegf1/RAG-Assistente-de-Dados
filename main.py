@@ -5,12 +5,11 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser # <--- NOVA IMPORTAÇÃO
 from dotenv import load_dotenv
 import os
-#rodar pip freeze > requirements.txt
+
 load_dotenv()
 
 CAMINHO_DB = "db"
 
-# --- NOVO TEMPLATE PARA O AGENTE TRADUTOR ---
 TEMPLATE_TRADUCAO = """
 Translate the following text to English. Return only the translation, nothing else.
 Text: {texto_original}
@@ -41,9 +40,6 @@ Você é um Assistente Técnico Especialista em Python. Sua função é responde
 def perguntar():
     pergunta = input("Escreva sua pergunta: ")
 
-    # ======================================================
-    # ETAPA NOVA: AGENTE DE TRADUÇÃO (PT -> EN)
-    # ======================================================
     print("Traduzindo para melhorar a busca...")
     llm_tradutor = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
     prompt_tradutor = ChatPromptTemplate.from_template(TEMPLATE_TRADUCAO)
@@ -53,7 +49,6 @@ def perguntar():
     
     pergunta_ingles = chain_traducao.invoke({"texto_original": pergunta})
     print(f"Termo traduzido: {pergunta_ingles}")
-    # ======================================================
 
     # 1. Carregar o modelo de Embedding 
     funcao_embedding = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
@@ -61,7 +56,7 @@ def perguntar():
     # 2. Carregar o banco
     db = Chroma(persist_directory=CAMINHO_DB, embedding_function=funcao_embedding)
 
-    # 3. Busca por similaridade (USANDO A PERGUNTA EM INGLÊS AGORA)
+    # 3. Busca por similaridade (usando a pergunta em inglês)
     resultados = db.similarity_search_with_relevance_scores(pergunta_ingles, k=4)
     
     if len(resultados) == 0 or resultados[0][1] < 0.5:
@@ -72,7 +67,7 @@ def perguntar():
     textos_resultado = [resultado[0].page_content for resultado in resultados]
     base_conhecimento = "\n\n----\n\n".join(textos_resultado)
 
-    # 4. Preparar o Prompt (MANTÉM A PERGUNTA ORIGINAL EM PT PARA A RESPOSTA)
+    # 4. Preparar o Prompt 
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt = prompt_template.invoke({"pergunta": pergunta, "base_conhecimento": base_conhecimento})
 

@@ -16,7 +16,7 @@ O sistema foi desenvolvido seguindo o padrão de arquitetura limpa, separando a 
 1.  **Input do Usuário:** Pergunta em PT-BR.
 2.  **Agente Tradutor:** Um LLM especializado traduz a query para Inglês (melhorando a semântica para busca vetorial).
 3.  **Vector Search (ChromaDB):** Busca os trechos (chunks) mais relevantes nos PDFs indexados.
-4.  **Agente de Resposta:** O LLM (Gemini 1.5 Flash) recebe o contexto em inglês e gera a explicação final em PT-BR.
+4.  **Agente de Resposta:** O LLM (Gemini 2.5 Flash) recebe o contexto em inglês e gera a explicação final em PT-BR.
 
 ## 🛠️ Tecnologias Utilizadas
 
