@@ -8,6 +8,7 @@ import os
 load_dotenv()
 
 PASTA_BASE = "base_dados"
+PASTA_DB = "db"
 
 def criar_db():
 
@@ -29,7 +30,6 @@ def carregar_documentos():
     print("Carregando documentos...")
     carregador = PyPDFDirectoryLoader(PASTA_BASE, glob="*.pdf")
     documentos = carregador.load()
-    print("Documentos carregados")
     return documentos
 
 def dividir_chunks(documentos):
@@ -39,20 +39,22 @@ def dividir_chunks(documentos):
         length_function=len,
     )
     chunks = separador_documentos.split_documents(documentos)
-    print("Chunks criados")
     return chunks
 
 def vetorizar_chunks(chunks):
     print("Gerando embeddings e salvando no ChromaDB...")
+
     embedding_model = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
+
+    os.makedirs(PASTA_DB, exist_ok=True)
 
     db = Chroma.from_documents(
         documents=chunks, 
         embedding=embedding_model, 
-        persist_directory="db"
+        persist_directory=PASTA_DB
     )
     
-    print("Banco de Dados criado com sucesso na pasta 'db'")
+    print(f"Banco de Dados criado com sucesso na pasta '{PASTA_DB}'")
 
 if __name__ == "__main__": 
     criar_db()

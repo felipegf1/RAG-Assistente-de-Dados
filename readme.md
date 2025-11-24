@@ -1,41 +1,121 @@
-# 🤖 Gemini RAG Assistant
+# 🤖 Gemini RAG – Assistente de Dados
 
-Este projeto é um assistente virtual baseado em RAG (Retrieval-Augmented Generation) que permite conversar com documentos PDF técnicos. 
+Este projeto é um **assistente virtual baseado em RAG (Retrieval-Augmented Generation)** voltado para apoiar **estudos, análises e dúvidas técnicas na área de dados**.
 
-O diferencial deste sistema é o uso de **Query Translation**: o usuário pode perguntar em Português, o sistema traduz internamente para Inglês para buscar nos documentos técnicos (geralmente em inglês), e a resposta final é gerada de volta em Português.
+Ele permite que você **converse em Português** com os conteúdos presentes em documentos PDF técnicos.  
+O sistema traduz internamente a pergunta para inglês (onde a maioria da documentação técnica está escrita), realiza a busca vetorial e depois responde em PT-BR de forma natural e contextualizada.
 
-![Python](https://img.shields.io/badge/python-3.10%2B-blue)
-![LangChain](https://img.shields.io/badge/LangChain-v0.3-green)
-![Gemini](https://img.shields.io/badge/Model-Gemini%202.5%20Flash-orange)
-![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-red)
+---
 
-## 🏗️ Arquitetura do Projeto
+## ✨ Funcionalidades
 
-O sistema foi desenvolvido seguindo o padrão de arquitetura limpa, separando a interface da lógica de negócio. O fluxo de dados funciona da seguinte maneira:
+- Conversa em **PT-BR**, mas pesquisa em **inglês** para melhorar a precisão.
+- Usa **Gemini 2.5 Flash** para traduzir consultas e gerar respostas inteligentes.
+- Indexa PDFs técnicos via **ChromaDB + Embeddings**.
+- Interface simples e rápida com **Streamlit**.
+- Integração direta com documentos reais, ideal para estudo e consulta.
 
-1.  **Input do Usuário:** Pergunta em PT-BR.
-2.  **Agente Tradutor:** Um LLM especializado traduz a query para Inglês (melhorando a semântica para busca vetorial).
-3.  **Vector Search (ChromaDB):** Busca os trechos (chunks) mais relevantes nos PDFs indexados.
-4.  **Agente de Resposta:** O LLM (Gemini 2.5 Flash) recebe o contexto em inglês e gera a explicação final em PT-BR.
+---
 
 ## 🛠️ Tecnologias Utilizadas
 
-* **Linguagem:** Python
-* **Orquestração:** LangChain
-* **LLM & Embeddings:** Google Gemini (`gemini-2.5-flash` e `text-embedding-004`)
-* **Banco Vetorial:** ChromaDB
-* **Interface:** Streamlit
-* **Processamento de Arquivos:** PyPDF
+- **Python 3.10+**
+- **LangChain**
+- **Google Gemini 2.5 Flash**
+- **Embeddings:** `models/text-embedding-004`
+- **ChromaDB**
+- **PyPDF**
+- **Streamlit**
 
-## 📂 Estrutura de Pastas
+---
+
+## 🚀 Como Executar o Projeto
+
+Siga os passos abaixo para rodar o assistente **RAG** localmente.
+
+---
+
+### **1. Clone o repositório**
+
+Clone o repositório e navegue até o diretório do projeto:
 
 ```bash
-.
-├── dados/                # Pasta onde ficam os PDFs para ingestão
-├── db/                   # Banco de dados vetorial (persistido localmente)
-├── src/                  # Código fonte da inteligência (Backend)
-│   ├── ingestao.py       # Script para ler PDFs e criar o banco
-│   └── rag_engine.py     # Classe que gerencia a lógica de RAG e tradução
-├── app.py                # Interface do usuário (Streamlit)
-├── requirements.txt      # Dependências do projeto
-└── .env                  # Variáveis de ambiente (API KEYS)
+git clone [https://github.com/felipegf1/RAG-Assistente-de-Dados.git](https://github.com/felipegf1/RAG-Assistente-de-Dados.git)
+cd RAG-Assistente-de-Dados
+```
+
+---
+
+### **2. Crie o ambiente virtual**
+
+Crie e ative um ambiente virtual para isolar as dependências do projeto:
+
+```bash
+python -m venv venv
+```
+
+**Ativação:**
+
+```bash
+# Linux / Mac
+source venv/bin/activate      
+
+# Windows
+venv\Scripts\activate
+```
+
+---
+
+### **3. Instale as dependências**
+
+Instale todas as bibliotecas necessárias usando o `requirements.txt`:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### **4. Configure as variáveis de ambiente**
+
+Primeiro, renomeie o arquivo de exemplo para `.env`:
+
+```bash
+# Linux/Mac
+cp .env.example .env
+
+# Windows
+copy .env.example .env
+```
+
+Em seguida, abra o arquivo **`.env`** e insira sua **Google API Key**:
+
+> **`.env`**
+>
+> ```
+> GOOGLE_API_KEY="sua-api-key-aqui"
+> ```
+
+---
+
+### **5. Gere o banco vetorial (ChromaDB)**
+
+Execute o script para processar os dados e gerar o banco de dados vetorial:
+
+```bash
+python criar_db.py
+```
+
+Isso criará a pasta **`db/`** no diretório raiz do projeto.
+
+---
+
+### **6. Rodar o Assistente RAG (Streamlit)**
+
+Execute o aplicativo Streamlit para iniciar o assistente:
+
+```bash
+streamlit run app.py
+```
+
+O assistente estará acessível no seu navegador.

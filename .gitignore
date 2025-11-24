@@ -1,7 +1,26 @@
-# .gitignore
+# Virtual env
 venv/
+.env/
+.venv/
+*/venv/
+*/.venv/
+
+# Python cache
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Env files
 .env
+*.env
+
+# ChromaDB 
 db/
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# VSCode (opcional)
+.vscode/
