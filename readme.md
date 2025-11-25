@@ -7,7 +7,7 @@ O sistema traduz internamente a pergunta para inglês (onde a maioria da documen
 
 ---
 
-![Interface do Projeto](./img/tela_rag.jpg)
+<img width="1076" height="857" alt="Interface do Projeto" src="https://github.com/user-attachments/assets/fa180e41-3c72-455d-8ef5-5e18942e0543" />
 
 ---
 
