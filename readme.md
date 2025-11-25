@@ -7,7 +7,7 @@ O sistema traduz internamente a pergunta para inglês (onde a maioria da documen
 
 ---
 
-![Interface do Projeto](img/tela_rag.png)
+![Interface do Projeto](img/tela_rag.jpg)
 
 ---
 
