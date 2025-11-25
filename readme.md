@@ -7,6 +7,10 @@ O sistema traduz internamente a pergunta para inglês (onde a maioria da documen
 
 ---
 
+![Interface do Projeto](./img/tela_RAG.PNG)
+
+---
+
 ## ✨ Funcionalidades
 
 - Conversa em **PT-BR**, mas pesquisa em **inglês** para melhorar a precisão.
