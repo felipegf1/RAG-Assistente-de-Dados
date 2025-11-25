@@ -7,7 +7,7 @@ O sistema traduz internamente a pergunta para inglês (onde a maioria da documen
 
 ---
 
-![Interface do Projeto](https://github.com/felipegf1/RAG-Assistente-de-Dados/raw/main/img/tela_rag.jpg)
+<img src="img/tela_rag.jpg" alt="Interface do Projeto" width="100%">
 
 ---
 
